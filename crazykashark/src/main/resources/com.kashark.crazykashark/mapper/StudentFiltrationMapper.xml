@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kashark.crazykashark.mapper.StudentFiltrationMapper">
+    <sql id="selectStudentFiltration">
+        SELECT sfilt.`id`,
+               sfilt.`filt_chart_id`,
+               sfilt.`student_id`,
+               sfilt.`filt_teacher_id`,
+               sfilt.`batch`,
+               sfilt.`type`,
+               sfilt.`grade`,
+               sfilt.`comment`
+        FROM `student_filt` sfilt
+    </sql>
+
+    <select resultMap="studentFiltrationResultMap" id="getStudentFiltration"
+            resultType="com.kashark.crazykashark.entity.StudentFiltration">
+        <include refid="selectStudentFiltration"/>
+        WHERE sfilt.`deleted` = 0
+    </select>
+
+    <select resultMap="studentFiltrationResultMap" id="getStudentFiltrationById"
+            resultType="com.kashark.crazykashark.entity.StudentFiltration">
+        <include refid="selectStudentFiltration"/>
+        WHERE sfilt.`deleted` = 0
+        AND sfilt.`id` = #{id}
+    </select>
+
+    <select resultMap="studentFiltrationResultMap" id="getStudentFiltrationByFiltChartId"
+            resultType="com.kashark.crazykashark.entity.StudentFiltration">
+        <include refid="selectStudentFiltration"/>
+        WHERE sfilt.`deleted` = 0
+        AND sfilt.`filt_chart_id` = #{filtChartId}
+    </select>
+
+    <select resultMap="studentFiltrationResultMap" id="getStudentFiltrationByStudentId"
+            resultType="com.kashark.crazykashark.entity.StudentFiltration">
+        <include refid="selectStudentFiltration"/>
+        WHERE sfilt.`deleted` = 0
+        AND sfilt.`student_id` = #{studentId}
+    </select>
+
+    <select resultMap="studentFiltrationResultMap" id="getStudentFiltrationByFiltTeacherId"
+            resultType="com.kashark.crazykashark.entity.StudentFiltration">
+        <include refid="selectStudentFiltration"/>
+        WHERE sfilt.`deleted` = 0
+        AND sfilt.`filt_teacher_id` = #{filtTeacherId}
+    </select>
+
+    <select resultMap="studentFiltrationResultMap" id="getStudentFiltrationByBatch"
+            resultType="com.kashark.crazykashark.entity.StudentFiltration">
+        <include refid="selectStudentFiltration"/>
+        WHERE sfilt.`deleted` = 0
+        AND sfilt.`batch` = #{batch}
+    </select>
+
+    <select resultMap="studentFiltrationResultMap" id="getStudentFiltrationInAscCreateTime"
+            resultType="com.kashark.crazykashark.entity.StudentFiltration">
+        <include refid="selectStudentFiltration"/>
+        WHERE sfilt.`deleted` = 0
+        ORDER BY sfilt.`create_time` ASC
+        LIMIT #{start}, #{length}
+    </select>
+
+    <select resultMap="studentFiltrationResultMap" id="getStudentFiltrationInDescCreateTime"
+            resultType="com.kashark.crazykashark.entity.StudentFiltration">
+        <include refid="selectStudentFiltration"/>
+        WHERE sfilt.`deleted` = 0
+        ORDER BY sfilt.`create_time` DESC
+        LIMIT #{start}, #{length}
+    </select>
+
+    <select resultMap="studentFiltrationResultMap" id="searchStudentFiltration"
+            resultType="com.kashark.crazykashark.entity.StudentFiltration">
+        <include refid="selectStudentFiltration"/>
+        <where>
+            <if test="keywords != null">
+                <foreach collection="keywords" item="keyword">
+                    AND (
+                    sfilt.`student_name` LIKE "%"#{keyword}"%"
+                    OR sfilt.`student_id` LIKE "%"#{keyword}"%"
+                    )
+                </foreach>
+            </if>
+            AND sfilt.`deleted` = 0
+        </where>
+        ORDER BY sfilt.`filt_chart_id` ASC
+        LIMIT #{start}, #{length}
+    </select>
+
+    <resultMap id="studentFiltrationResultMap" type="com.kashark.crazykashark.entity.StudentFiltration">
+        <id column="id" property="id"/>
+        <result column="filtChartId" property="filt_chart_id"/>
+        <result column="studentId" property="student_id"/>
+        <result column="filtTeacherId" property="filt_teacher_id"/>
+        <result column="batch" property="batch"/>
+        <result column="type" property="type"/>
+        <result column="grade" property="grade"/>
+        <result column="comment" property="comment"/>
+    </resultMap>
+</mapper>

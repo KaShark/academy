@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kashark.crazykashark.mapper.StudentInformationMapper">
+    <sql id="selectStudentInformation">
+        SELECT sinfo.`id`,
+               sinfo.`student_id`,
+               sinfo.`is_fresh`,
+               sinfo.`registration_time`,
+               sinfo.`student_name`,
+               sinfo.`school`,
+               sinfo.`major`,
+               sinfo.`parent_name`,
+               sinfo.`telephone`,
+               sinfo.`wechat_name`,
+               sinfo.`score`,
+               sinfo.`status`,
+               sinfo.`comment`
+        FROM `student_information` sinfo
+    </sql>
+
+    <sql id="selectBriefStudentInformation">
+        SELECT sinfo.`id`,
+               sinfo.`student_id`,
+               sinfo.`student_name`,
+               sinfo.`school`,
+               sinfo.`major`,
+               sinfo.`score`,
+               sinfo.`status`
+        FROM `student_information` sinfo
+    </sql>
+
+    <select resultMap="studentInformationResultMap" id="getBriefStudentInformation"
+            resultType="com.kashark.crazykashark.entity.StudentInformation">
+        <include refid="selectBriefStudentInformation"/>
+        WHERE sinfo.`deleted` = 0
+        ORDER BY sinfo.`student_id` ASC
+    </select>
+
+    <select resultMap="studentInformationResultMap" id="getStudentInformationById"
+            resultType="com.kashark.crazykashark.entity.StudentInformation">
+        <include refid="selectStudentInformation"/>
+        WHERE sinfo.`deleted` = 0
+        AND sinfo.`id` = #{id}
+    </select>
+
+    <select resultMap="studentInformationResultMap" id="getBriefStudentInformationByStudentId"
+            resultType="com.kashark.crazykashark.entity.StudentInformation">
+        <include refid="selectBriefStudentInformation"/>
+        WHERE sinfo.`deleted` = 0
+        AND sinfo.`student_id` = #{studentId}
+    </select>
+
+    <select resultMap="studentInformationResultMap" id="getBriefStudentInformationInAscScore"
+            resultType="com.kashark.crazykashark.entity.StudentInformation">
+        <include refid="selectBriefStudentInformation"/>
+        WHERE sinfo.`deleted` = 0
+        ORDER BY sinfo.`score` ASC
+        LIMIT #{start}, #{length}
+    </select>
+
+    <select resultMap="studentInformationResultMap" id="getBriefStudentInformationInDescScore"
+            resultType="com.kashark.crazykashark.entity.StudentInformation">
+        <include refid="selectBriefStudentInformation"/>
+        WHERE sinfo.`deleted` = 0
+        ORDER BY sinfo.`score` DESC
+        LIMIT #{start}, #{length}
+    </select>
+
+    <select resultMap="studentInformationResultMap" id="searchBriefStudentInformation"
+            resultType="com.kashark.crazykashark.entity.StudentInformation">
+        <include refid="selectBriefStudentInformation"/>
+        <where>
+            <if test="keywords != null">
+                <foreach collection="keywords" item="keyword">
+                    AND (
+                    sinfo.`student_name` LIKE "%"#{keyword}"%"
+                    OR sinfo.`student_id` LIKE "%"#{keyword}"%"
+                    )
+                </foreach>
+            </if>
+            AND sinfo.`deleted` = 0
+        </where>
+        ORDER BY sinfo.`student_id` ASC
+        LIMIT #{start}, #{length}
+    </select>
+
+    <resultMap id="studentInformationResultMap" type="com.kashark.crazykashark.entity.StudentInformation">
+        <id column="id" property="id"/>
+        <result column="studentId" property="student_id"/>
+        <result column="isFresh" property="is_fresh"/>
+        <result column="registrationTime" property="registration_time"/>
+        <result column="studentName" property="student_name"/>
+        <result column="school" property="school"/>
+        <result column="major" property="major"/>
+        <result column="parentName" property="parent_name"/>
+        <result column="telephone" property="telephone"/>
+        <result column="wechatName" property="wechat_name"/>
+        <result column="score" property="score"/>
+        <result column="status" property="status"/>
+        <result column="comment" property="comment"/>
+    </resultMap>
+</mapper>
