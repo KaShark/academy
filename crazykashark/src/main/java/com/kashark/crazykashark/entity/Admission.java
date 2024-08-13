@@ -12,9 +12,9 @@ import java.sql.Timestamp;
  */
 @Data
 public class Admission {
-    private Long id;
+    private Integer id;
 
-    private Long studentId;
+    private Integer studentId;
 
     private String university;
 
@@ -26,11 +26,11 @@ public class Admission {
 
     private Timestamp createTime;
 
-    private Long createBy;
+    private Integer createBy;
 
     private Timestamp updateTime;
 
-    private Long updateBy;
+    private Integer updateBy;
 
     @TableLogic
     private Integer deleted;

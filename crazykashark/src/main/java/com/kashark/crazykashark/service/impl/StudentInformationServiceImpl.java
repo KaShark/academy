@@ -61,7 +61,6 @@ public class StudentInformationServiceImpl implements StudentInformationService 
     @Override
     public void newStudentInformation(Integer staffId, StudentInformation studentInformation) throws ServiceException {
         log.info("新建学生信息：学生信息 {}", studentInformation);
-        studentInformation.setStudentId(studentInformation.getConsultation()*1000 + studentInformation.getStudentId());
         if(studentInformationMapper.getBriefStudentInformationByStudentId(studentInformation.getStudentId()) != null) {
             throw new ServiceException(StatusCode.NEW_STUDENT_INFORMATION_FAIL, "学生编号已存在");
         }
@@ -75,6 +74,9 @@ public class StudentInformationServiceImpl implements StudentInformationService 
     @Override
     public void editStudentInformation(Integer staffId, StudentInformation studentInformation) throws ServiceException {
         log.info("修改学生信息：学生信息 {}", studentInformation);
+        if(studentInformationMapper.getBriefStudentInformationByStudentId(studentInformation.getStudentId()) != null) {
+            throw new ServiceException(StatusCode.NEW_STUDENT_INFORMATION_FAIL, "学生编号已存在");
+        }
         studentInformation.setUpdateTime(new Timestamp(System.currentTimeMillis()));
         studentInformation.setUpdateBy(staffId);
         if (studentInformationMapper.updateById(studentInformation) <= 0) {

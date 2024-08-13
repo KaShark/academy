@@ -12,13 +12,13 @@ import java.sql.Timestamp;
  */
 @Data
 public class StudentPlan {
-    private Long id;
+    private Integer id;
 
-    private Long studentId;
+    private Integer studentId;
 
-    private Long planChartId;
+    private Integer planChartId;
 
-    private Long coreTeacherId;
+    private Integer coreTeacherId;
 
     private String batch;
 
@@ -26,11 +26,11 @@ public class StudentPlan {
 
     private Timestamp createTime;
 
-    private Long createBy;
+    private Integer createBy;
 
     private Timestamp updateTime;
 
-    private Long updateBy;
+    private Integer updateBy;
 
     @TableLogic
     private Integer deleted;

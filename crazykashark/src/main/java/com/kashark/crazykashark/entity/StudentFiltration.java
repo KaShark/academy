@@ -12,27 +12,27 @@ import java.sql.Timestamp;
  */
 @Data
 public class StudentFiltration {
-    private Long id;
+    private Integer id;
 
-    private Long studentId;
+    private Integer studentId;
 
-    private Long filtChartId;
+    private Integer filtChartId;
 
-    private Long filtTeacherId;
+    private Integer filtTeacherId;
 
     private String batch;
 
-    private Long grade;
+    private Integer grade;
 
     private String comment;
 
     private Timestamp createTime;
 
-    private Long createBy;
+    private Integer createBy;
 
     private Timestamp updateTime;
 
-    private Long updateBy;
+    private Integer updateBy;
 
     @TableLogic
     private Integer deleted;

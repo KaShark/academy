@@ -13,15 +13,15 @@ import java.sql.Timestamp;
 @Data
 public class Schedule {
 
-    private Long id;
+    private Integer id;
 
-    private Long studentId;
+    private Integer studentId;
 
-    private Long coreTeacherId;
+    private Integer coreTeacherId;
 
     private Timestamp time;
 
-    private Boolean type;
+    private String type;
 
     private String status;
 
@@ -29,11 +29,11 @@ public class Schedule {
 
     private Timestamp createTime;
 
-    private Long createBy;
+    private Integer createBy;
 
     private Timestamp updateTime;
 
-    private Long updateBy;
+    private Integer updateBy;
 
     @TableLogic
     private Integer deleted;

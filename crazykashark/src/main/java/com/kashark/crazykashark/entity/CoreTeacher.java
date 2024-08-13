@@ -12,19 +12,19 @@ import java.sql.Timestamp;
  */
 @Data
 public class CoreTeacher {
-    private Long id;
+    private Integer id;
 
-    private Long staffId;
+    private Integer staffId;
 
     private String coreTeacherId;
 
     private Timestamp createTime;
 
-    private Long createBy;
+    private Integer createBy;
 
     private Timestamp updateTime;
 
-    private Long updateBy;
+    private Integer updateBy;
 
     @TableLogic
     private Integer deleted;
