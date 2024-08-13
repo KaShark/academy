@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kashark.crazykashark.mapper.StudentInformationMapper">
+    <sql id="selectStudentInformation">
+        SELECT stu_i.`id`,
+               stu_i.`student_id`,
+               stu_i.`registration_time`,
+               stu_i.`student_name`,
+               stu_i.`high_school`,
+               stu_i.`major`,
+               stu_i.`score`,
+               stu_i.`enrollment`,
+               stu_i.`consultation`,
+               stu_i.`telephone`,
+               stu_i.`parent_name`,
+               stu_i.`wechat_name`,
+               stu_i.`comment`
+        FROM `student_information` stu_i
+    </sql>
+
+    <sql id="selectBriefStudentInformation">
+        SELECT stu_i.`id`,
+               stu_i.`consultation`,
+               stu_i.`student_id`,
+               stu_i.`student_name`,
+               stu_i.`high_school`,
+               stu_i.`major`,
+               stu_i.`score`
+        FROM `student_information` stu_i
+    </sql>
+
+    <select resultMap="studentInformationBriefResultMap" id="getBriefStudentInformation"
+            resultType="com.kashark.crazykashark.entity.StudentInformation">
+        <include refid="selectBriefStudentInformation"/>
+        WHERE stu_i.`deleted` = 0
+        ORDER BY stu_i.`consultation` ASC, stu_i.`student_id` ASC
+        LIMIT #{start}, #{length}
+    </select>
+
+    <select resultMap="studentInformationBriefResultMap" id="getBriefStudentInformationByConsultation"
+            resultType="com.kashark.crazykashark.entity.StudentInformation">
+        <include refid="selectBriefStudentInformation"/>
+        WHERE stu_i.`deleted` = 0
+        AND stu_i.`consultation` = #{consultation}
+        ORDER BY stu_i.`student_id` ASC
+        LIMIT #{start}, #{length}
+    </select>
+
+
+    <select resultMap="studentInformationResultMap" id="getStudentInformationById"
+            resultType="com.kashark.crazykashark.entity.StudentInformation">
+        <include refid="selectStudentInformation"/>
+        WHERE stu_i.`deleted` = 0
+        AND stu_i.`id` = #{id}
+    </select>
+
+    <select resultMap="studentInformationBriefResultMap" id="getBriefStudentInformationByStudentId"
+            resultType="com.kashark.crazykashark.entity.StudentInformation">
+        <include refid="selectBriefStudentInformation"/>
+        WHERE stu_i.`deleted` = 0
+        AND stu_i.`student_id` = #{studentId}
+    </select>
+
+    <select resultMap="studentInformationBriefResultMap" id="searchBriefStudentInformation"
+            resultType="com.kashark.crazykashark.entity.StudentInformation">
+        <include refid="selectBriefStudentInformation"/>
+        <where>
+            <if test="keywords != null">
+                <foreach collection="keywords" item="keyword">
+                    AND (
+                    stu_i.`student_name` LIKE "%"#{keyword}"%"
+                    OR stu_i.`student_id` LIKE "%"#{keyword}"%"
+                    )
+                </foreach>
+            </if>
+            AND stu_i.`deleted` = 0
+        </where>
+        ORDER BY stu_i.`consultation` ASC, stu_i.`student_id` ASC
+        LIMIT #{start}, #{length}
+    </select>
+
+    <resultMap id="studentInformationResultMap" type="com.kashark.crazykashark.entity.StudentInformation">
+        <id column="id" property="id"/>
+        <result column="studentId" property="student_id"/>
+        <result column="registrationTime" property="registration_time"/>
+        <result column="studentName" property="student_name"/>
+        <result column="highSchool" property="high_school"/>
+        <result column="major" property="major"/>
+        <result column="score" property="score"/>
+        <result column="enrollment" property="enrollment"/>
+        <result column="consultation" property="consultation"/>
+        <result column="telephone" property="telephone"/>
+        <result column="parentName" property="parent_name"/>
+        <result column="wechatName" property="wechat_name"/>
+        <result column="comment" property="comment"/>
+    </resultMap>
+
+    <resultMap id="studentInformationBriefResultMap" type="com.kashark.crazykashark.entity.StudentInformation">
+        <id column="id" property="id"/>
+        <result column="consultation" property="consultation"/>
+        <result column="studentId" property="student_id"/>
+        <result column="studentName" property="student_name"/>
+        <result column="highSchool" property="high_school"/>
+        <result column="major" property="major"/>
+        <result column="score" property="score"/>
+    </resultMap>
+</mapper>

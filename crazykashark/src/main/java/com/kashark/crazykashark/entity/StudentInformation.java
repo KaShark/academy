@@ -12,37 +12,39 @@ import java.sql.Timestamp;
  */
 @Data
 public class StudentInformation {
-    private Long studentId;
+    private Integer id;
 
-    private Boolean isFresh;
+    private Integer consultation;
+
+    private Integer studentId;
 
     private Timestamp registrationTime;
 
     private String studentName;
 
-    private String school;
+    private String highSchool;
 
-    private Boolean major;
+    private String major;
+
+    private Integer score;
+
+    private Integer enrollment;
+
+    private String telephone;
 
     private String parentName;
 
-    private Long telephone;
-
     private String wechatName;
-
-    private Long score;
-
-    private Integer status;
 
     private String comment;
 
     private Timestamp createTime;
 
+    private Integer createBy;
+
     private Timestamp updateTime;
 
-    private Long createBy;
-
-    private Long updateBy;
+    private Integer updateBy;
 
     @TableLogic
     private Integer deleted;

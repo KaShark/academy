@@ -1,5 +1,6 @@
 package com.kashark.crazykashark.entity;
 
+import com.baomidou.mybatisplus.annotation.TableLogic;
 import lombok.Data;
 
 import java.sql.Timestamp;
@@ -15,19 +16,22 @@ public class Admission {
 
     private Long studentId;
 
-    private String schoolChoice;
+    private String university;
 
-    private String majorChoice;
+    private String subject;
+
+    private String error;
 
     private String comment;
 
     private Timestamp createTime;
 
-    private Timestamp updateTime;
-
     private Long createBy;
+
+    private Timestamp updateTime;
 
     private Long updateBy;
 
+    @TableLogic
     private Integer deleted;
 }

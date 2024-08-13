@@ -1,8 +1,8 @@
 package com.kashark.crazykashark;
 
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 /**
  * 应用程序类
@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  * @version 1.0
  */
 @SpringBootApplication
-@EnableTransactionManagement
+@MapperScan("com.kashark.crazykashark.mapper")
 public class CrazykasharkApplication {
     public static void main(String[] args) {
         SpringApplication.run(CrazykasharkApplication.class, args);

@@ -1,5 +1,6 @@
 package com.kashark.crazykashark.entity;
 
+import com.baomidou.mybatisplus.annotation.TableLogic;
 import lombok.Data;
 
 import java.sql.Timestamp;
@@ -22,15 +23,18 @@ public class Schedule {
 
     private Boolean type;
 
+    private String status;
+
     private String comment;
 
     private Timestamp createTime;
 
-    private Timestamp updateTime;
-
     private Long createBy;
+
+    private Timestamp updateTime;
 
     private Long updateBy;
 
+    @TableLogic
     private Integer deleted;
 }

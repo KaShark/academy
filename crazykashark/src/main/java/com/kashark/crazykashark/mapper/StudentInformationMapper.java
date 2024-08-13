@@ -15,13 +15,11 @@ import java.util.List;
 public interface StudentInformationMapper extends BaseMapper<StudentInformation> {
     List<StudentInformation> getBriefStudentInformation(Integer start, Integer length);
 
-    StudentInformation getStudentInformationById(Long id);
+    List<StudentInformation> getBriefStudentInformationByConsultation(Integer consultation, Integer start, Integer length);
 
-    StudentInformation getBriefStudentInformationByStudentId(Long studentId);
+    StudentInformation getStudentInformationById(Integer id);
 
-    List<StudentInformation> getBriefStudentInformationInAscScore(Integer start, Integer length);
-
-    List<StudentInformation> getBriefStudentInformationInDescScore(Integer start, Integer length);
+    StudentInformation getBriefStudentInformationByStudentId(Integer studentId);
 
     List<StudentInformation> searchBriefStudentInformation(String[] keywords, Integer start, Integer length);
 }

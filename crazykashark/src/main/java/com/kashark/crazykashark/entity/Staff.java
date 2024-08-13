@@ -15,13 +15,23 @@ public class Staff {
 
     private Long staffId;
 
-    private String name;
+    private String staffName;
+
+    private Integer authorization;
+
+    private String account;
+
+    private String password;
+
+    private String avatar;
+
+    private String telephone;
 
     private Timestamp createTime;
 
-    private Timestamp updateTime;
-
     private Long createBy;
+
+    private Timestamp updateTime;
 
     private Long updateBy;
 
