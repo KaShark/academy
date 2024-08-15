@@ -1,8 +1,6 @@
 package com.kashark.crazykashark.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.kashark.crazykashark.dto.BriefStudentInformationDTO;
-import com.kashark.crazykashark.dto.ScheduleDTO;
 import com.kashark.crazykashark.dto.StaffDTO;
 import com.kashark.crazykashark.entity.Staff;
 import org.apache.ibatis.annotations.Mapper;
