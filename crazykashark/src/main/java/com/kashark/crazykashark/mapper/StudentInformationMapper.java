@@ -1,6 +1,8 @@
 package com.kashark.crazykashark.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.kashark.crazykashark.dto.BriefStudentInformationDTO;
+import com.kashark.crazykashark.dto.StudentInformationDTO;
 import com.kashark.crazykashark.entity.StudentInformation;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -13,13 +15,13 @@ import java.util.List;
  */
 @Mapper
 public interface StudentInformationMapper extends BaseMapper<StudentInformation> {
-    List<StudentInformation> getBriefStudentInformation(Integer start, Integer length);
+    List<BriefStudentInformationDTO> getBriefStudentInformation(Integer start, Integer length);
 
-    List<StudentInformation> getBriefStudentInformationByConsultation(Integer consultation, Integer start, Integer length);
+    List<BriefStudentInformationDTO> getBriefStudentInformationByConsultation(Integer consultation, Integer start, Integer length);
 
-    StudentInformation getStudentInformationById(Integer id);
+    StudentInformationDTO getStudentInformationById(Integer id);
 
-    StudentInformation getBriefStudentInformationByStudentId(Integer studentId);
+    BriefStudentInformationDTO getBriefStudentInformationByStudentId(Integer studentId);
 
-    List<StudentInformation> searchBriefStudentInformation(String[] keywords, Integer start, Integer length);
+    List<BriefStudentInformationDTO> searchBriefStudentInformation(String[] keywords, Integer start, Integer length);
 }

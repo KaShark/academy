@@ -4,96 +4,144 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.kashark.crazykashark.mapper.ScheduleMapper">
     <sql id="selectSchedule">
-        SELECT s.`id`,
-               s.`student_id`,
-               s.`core_teacher_id`,
-               s.`time`,
-               s.`type`,
-               s.`comment`
-        FROM `schedule` s
+        SELECT sch.`id`,
+               c_tea.`core_teacher_id`,
+               sta.`staff_name` `core_teacher_name`,
+               sch.`student_id`,
+               stu_info.`student_name`,
+               stu_info.`high_school`,
+               sch.`time`,
+               sch.`type`,
+               sch.`status`,
+               sch.`comment`
+        FROM `schedule` sch
+        LEFT JOIN `student_information` stu_info ON stu_info.`student_id` = sch.`student_id`
+        LEFT JOIN `plan_group` p_g ON p_g.`student_id` = sch.`student_id`
+        LEFT JOIN `core_teacher` c_tea ON c_tea.`core_teacher_id` = p_g.`core_teacher_id`
+        LEFT JOIN `staff` sta ON sta.`staff_id` = c_tea.`staff_id`
+
     </sql>
 
-    <select resultMap="scheduleResultMap" id="getSchedule"
-            resultType="com.kashark.crazykashark.entity.Schedule">
+    <select resultMap="scheduleResultMap" id="getSchedules"
+            resultType="com.kashark.crazykashark.dto.ScheduleDTO">
         <include refid="selectSchedule"/>
-        WHERE s.`deleted` = 0
+        WHERE sch.`deleted` = 0
+        ORDER BY sch.`time` ASC, c_tea.`core_teacher_id` ASC, sch.`type` ASC
         LIMIT #{start}, #{length}
     </select>
 
     <select resultMap="scheduleResultMap" id="getScheduleById"
-            resultType="com.kashark.crazykashark.entity.Schedule">
+            resultType="com.kashark.crazykashark.dto.ScheduleDTO">
         <include refid="selectSchedule"/>
-        WHERE s.`deleted` = 0
-        AND s.`id` = #{id}
+        WHERE sch.`deleted` = 0
+        AND sch.`id` = #{id}
     </select>
 
-    <select resultMap="scheduleResultMap" id="getScheduleByStudentId"
-            resultType="com.kashark.crazykashark.entity.Schedule">
+    <select resultMap="scheduleResultMap" id="getSchedulesByStudentId"
+            resultType="com.kashark.crazykashark.dto.ScheduleDTO">
         <include refid="selectSchedule"/>
-        WHERE s.`deleted` = 0
-        AND s.`student_id` = #{studentId}
-    </select>
-
-    <select resultMap="scheduleResultMap" id="getScheduleByCoreTeacherId"
-            resultType="com.kashark.crazykashark.entity.Schedule">
-        <include refid="selectSchedule"/>
-        WHERE s.`deleted` = 0
-        AND s.`core_teacher_id` = #{coreTeacherId}
-    </select>
-
-    <select resultMap="scheduleResultMap" id="getScheduleByTimeAndType"
-            resultType="com.kashark.crazykashark.entity.Schedule">
-        <include refid="selectSchedule"/>
-        WHERE s.`deleted` = 0
-        AND s.`time` BETWEEN #{beginTime} AND #{endTime}
-        AND s.`type` = #{type}
-        ORDER BY s.`time` ASC
-    </select>
-
-    <select resultMap="scheduleResultMap" id="getScheduleWithStatusByTimeAndType"
-            resultType="com.kashark.crazykashark.entity.Schedule">
-        <include refid="selectSchedule"/>
-        WHERE s.`deleted` = 0
-        AND s.`time` BETWEEN #{beginTime} AND #{endTime}
-        AND s.`type` = #{type}
-        ORDER BY s.`time` ASC
+        WHERE sch.`deleted` = 0
+        AND sch.`student_id` = #{studentId}
+        ORDER BY sch.`time` ASC
         LIMIT #{start}, #{length}
     </select>
 
-    <select resultMap="scheduleResultMap" id="getScheduleByTimeAndCoreTeacherIdAndType"
-            resultType="com.kashark.crazykashark.entity.Schedule">
+    <select resultMap="scheduleResultMap" id="getSchedulesByTime"
+            resultType="com.kashark.crazykashark.dto.ScheduleDTO">
         <include refid="selectSchedule"/>
-        WHERE s.`deleted` = 0
-        AND s.`time` BETWEEN #{beginTime} AND #{endTime}
-        AND s.`core_teacher_id` = #{coreTeacherId}
-        AND s.`type` = #{type}
-        ORDER BY s.`time` ASC
+        WHERE sch.`deleted` = 0
+        AND sch.`time` BETWEEN #{beginTime} AND #{endTime}
+        ORDER BY sch.`type` ASC, sch.`time` ASC
+        LIMIT #{start}, #{length}
     </select>
 
-    <select resultMap="scheduleResultMap" id="searchSchedule"
-            resultType="com.kashark.crazykashark.entity.Schedule">
+    <select resultMap="scheduleResultMap" id="getSchedulesByCoreTeacherId"
+            resultType="com.kashark.crazykashark.dto.ScheduleDTO">
+        <include refid="selectSchedule"/>
+        WHERE sch.`deleted` = 0
+        AND c_tea.`core_teacher_id` = #{coreTeacherId}
+        ORDER BY sch.`time` ASC
+        LIMIT #{start}, #{length}
+    </select>
+
+    <select resultMap="scheduleResultMap" id="getSchedulesByType"
+            resultType="com.kashark.crazykashark.dto.ScheduleDTO">
+        <include refid="selectSchedule"/>
+        WHERE sch.`deleted` = 0
+        AND sch.`type` = #{type}
+        ORDER BY sch.`time` ASC
+        LIMIT #{start}, #{length}
+    </select>
+
+    <select resultMap="scheduleResultMap" id="getSchedulesByCoreTeacherIdAndType"
+            resultType="com.kashark.crazykashark.dto.ScheduleDTO">
+        <include refid="selectSchedule"/>
+        WHERE sch.`deleted` = 0
+        AND c_tea.`core_teacher_id` = #{coreTeacherId}
+        AND sch.`type` = #{type}
+        ORDER BY sch.`time` ASC
+        LIMIT #{start}, #{length}
+    </select>
+
+    <select resultMap="scheduleResultMap" id="getSchedulesByTimeAndCoreTeacherId"
+            resultType="com.kashark.crazykashark.dto.ScheduleDTO">
+        <include refid="selectSchedule"/>
+        WHERE sch.`deleted` = 0
+        AND sch.`time` BETWEEN #{beginTime} AND #{endTime}
+        AND c_tea.`core_teacher_id` = #{coreTeacherId}
+        ORDER BY sch.`time` ASC
+        LIMIT #{start}, #{length}
+    </select>
+
+    <select resultMap="scheduleResultMap" id="getSchedulesByTimeAndType"
+            resultType="com.kashark.crazykashark.dto.ScheduleDTO">
+        <include refid="selectSchedule"/>
+        WHERE sch.`deleted` = 0
+        AND sch.`time` BETWEEN #{beginTime} AND #{endTime}
+        AND sch.`type` = #{type}
+        ORDER BY sch.`time` ASC
+        LIMIT #{start}, #{length}
+    </select>
+
+    <select resultMap="scheduleResultMap" id="getSchedulesByTimeAndCoreTeacherIdAndType"
+            resultType="com.kashark.crazykashark.dto.ScheduleDTO">
+        <include refid="selectSchedule"/>
+        WHERE sch.`deleted` = 0
+        AND sch.`time` BETWEEN #{beginTime} AND #{endTime}
+        AND c_tea.`core_teacher_id` = #{coreTeacherId}
+        AND sch.`type` = #{type}
+        ORDER BY sch.`time` ASC
+        LIMIT #{start}, #{length}
+    </select>
+
+    <select resultMap="scheduleResultMap" id="searchSchedules"
+            resultType="com.kashark.crazykashark.dto.ScheduleDTO">
         <include refid="selectSchedule"/>
         <where>
             <if test="keywords != null">
                 <foreach collection="keywords" item="keyword">
                     AND (
-                    s.`student_name` LIKE "%"#{keyword}"%"
-                    OR s.`student_id` LIKE "%"#{keyword}"%"
+                    stu_info.`student_name` LIKE "%"#{keyword}"%"
+                    OR sch.`student_id` LIKE "%"#{keyword}"%"
                     )
                 </foreach>
             </if>
-            AND s.`deleted` = 0
+            AND sch.`deleted` = 0
         </where>
-        ORDER BY s.`plan_chart_id` ASC
+        ORDER BY sch.`time` ASC
         LIMIT #{start}, #{length}
     </select>
 
-    <resultMap id="scheduleResultMap" type="com.kashark.crazykashark.entity.Schedule">
+    <resultMap id="scheduleResultMap" type="com.kashark.crazykashark.dto.ScheduleDTO">
         <id column="id" property="id"/>
-        <result column="planChartId" property="plan_chart_id"/>
-        <result column="studentId" property="student_id"/>
         <result column="coreTeacherId" property="core_teacher_id"/>
-        <result column="batch" property="batch"/>
+        <result column="coreTeacherName" property="core_teacher_name"/>
+        <result column="studentId" property="student_id"/>
+        <result column="studentName" property="student_name"/>
+        <result column="highSchool" property="high_school"/>
+        <result column="time" property="time"/>
+        <result column="type" property="type"/>
+        <result column="status" property="status"/>
         <result column="comment" property="comment"/>
     </resultMap>
 </mapper>

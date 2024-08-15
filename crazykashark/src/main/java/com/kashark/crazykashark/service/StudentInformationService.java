@@ -1,6 +1,7 @@
 package com.kashark.crazykashark.service;
 
-import com.kashark.crazykashark.entity.StudentInformation;
+import com.kashark.crazykashark.dto.BriefStudentInformationDTO;
+import com.kashark.crazykashark.dto.StudentInformationDTO;
 import com.kashark.crazykashark.exception.ServiceException;
 
 import java.util.List;
@@ -11,19 +12,19 @@ import java.util.List;
  * @version 1.0
  */
 public interface StudentInformationService {
-    List<StudentInformation> getBriefStudentInformation(Integer current, Integer size);
+    List<BriefStudentInformationDTO> getBriefStudentInformation(Integer current, Integer size);
 
-    List<StudentInformation> getBriefStudentInformationByConsultation(Integer consultation, Integer current, Integer size);
+    List<BriefStudentInformationDTO> getBriefStudentInformationByConsultation(Integer consultation, Integer current, Integer size);
 
-    StudentInformation getStudentInformationById(Integer id) throws ServiceException;
+    StudentInformationDTO getStudentInformationById(Integer id) throws ServiceException;
 
-    StudentInformation getBriefStudentInformationByStudentId(Integer studentId) throws ServiceException;
+    BriefStudentInformationDTO getBriefStudentInformationByStudentId(Integer studentId) throws ServiceException;
 
-    void newStudentInformation(Integer staffId, StudentInformation studentInformation) throws ServiceException;
+    void newStudentInformation(Integer staffId, StudentInformationDTO studentInformationDTO) throws ServiceException;
 
-    void editStudentInformation(Integer staffId, StudentInformation studentInformation) throws ServiceException;
+    void editStudentInformation(Integer staffId, StudentInformationDTO studentInformationDTO) throws ServiceException;
 
     void deleteStudentInformation(Integer staffId, Integer id) throws ServiceException;
 
-    List<StudentInformation> searchBriefStudentInformation(String[] keywords, Integer current, Integer size);
+    List<BriefStudentInformationDTO> searchBriefStudentInformation(String[] keywords, Integer current, Integer size);
 }

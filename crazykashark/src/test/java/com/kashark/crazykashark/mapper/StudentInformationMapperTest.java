@@ -32,15 +32,7 @@ class StudentInformationMapperTest {
     }
 
     @Test
-    void getBriefStudentInformationInAscScore() {
-    }
-
-    @Test
-    void getBriefStudentInformationInDescScore() {
-    }
-
-    @Test
     void searchBriefStudentInformation() {
-        log.info(studentInformationMapper.searchBriefStudentInformation(new String[]{"王"}, 0,10).toString());
+        log.info(studentInformationMapper.searchBriefStudentInformation(new String[]{"丽"}, 0,10).toString());
     }
 }

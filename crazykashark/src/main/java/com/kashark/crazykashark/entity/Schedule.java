@@ -6,7 +6,7 @@ import lombok.Data;
 import java.sql.Timestamp;
 
 /**
- * 筛选方案时间安排表类
+ * 时间表类
  * @author 赵宇鹏
  * @version 1.0
  */
@@ -16,8 +16,6 @@ public class Schedule {
     private Integer id;
 
     private Integer studentId;
-
-    private Integer coreTeacherId;
 
     private Timestamp time;
 

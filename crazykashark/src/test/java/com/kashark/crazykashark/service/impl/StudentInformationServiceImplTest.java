@@ -1,5 +1,7 @@
 package com.kashark.crazykashark.service.impl;
 
+import com.kashark.crazykashark.dto.BriefStudentInformationDTO;
+import com.kashark.crazykashark.dto.StudentInformationDTO;
 import com.kashark.crazykashark.entity.StudentInformation;
 import com.kashark.crazykashark.exception.ServiceException;
 import com.kashark.crazykashark.service.StudentInformationService;
@@ -38,29 +40,29 @@ class StudentInformationServiceImplTest {
 
     @Test
     void newStudentInformation() throws ServiceException {
-        StudentInformation studentInformation = new StudentInformation();
-        studentInformation.setStudentId(5);
-        studentInformation.setConsultation(2022);
-        studentInformation.setRegistrationTime(new Timestamp(System.currentTimeMillis()));
-        studentInformation.setStudentName("李颖");
-        studentInformation.setHighSchool("大同二中");
-        studentInformation.setMajor("理工");
-        studentInformation.setScore(437);
-        studentInformationService.newStudentInformation(11, studentInformation);
+        StudentInformationDTO studentInformationDTO = new StudentInformationDTO();
+        studentInformationDTO.setStudentId(5);
+        studentInformationDTO.setConsultation(2022);
+        studentInformationDTO.setRegistrationTime(new Timestamp(System.currentTimeMillis()));
+        studentInformationDTO.setStudentName("李颖");
+        studentInformationDTO.setHighSchool("大同二中");
+        studentInformationDTO.setMajor("理工");
+        studentInformationDTO.setScore(437);
+        studentInformationService.newStudentInformation(11, studentInformationDTO);
         log.info("SUCCESS");
     }
 
     @Test
     void editStudentInformation() throws ServiceException {
-        StudentInformation studentInformation = new StudentInformation();
-        studentInformation.setId(5);
-        studentInformation.setStudentId(2023005);
-        studentInformation.setConsultation(2023);
-        studentInformation.setStudentName("王卓");
-        studentInformation.setHighSchool("大同二中");
-        studentInformation.setMajor("理工");
-        studentInformation.setScore(500);
-        studentInformationService.editStudentInformation(11, studentInformation);
+        StudentInformationDTO studentInformationDTO = new StudentInformationDTO();
+        studentInformationDTO.setId(5);
+        studentInformationDTO.setStudentId(2023005);
+        studentInformationDTO.setConsultation(2023);
+        studentInformationDTO.setStudentName("王卓");
+        studentInformationDTO.setHighSchool("大同二中");
+        studentInformationDTO.setMajor("理工");
+        studentInformationDTO.setScore(500);
+        studentInformationService.editStudentInformation(11, studentInformationDTO);
         log.info("SUCCESS");
     }
 

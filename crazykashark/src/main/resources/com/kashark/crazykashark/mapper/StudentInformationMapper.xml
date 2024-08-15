@@ -32,7 +32,7 @@
     </sql>
 
     <select resultMap="studentInformationBriefResultMap" id="getBriefStudentInformation"
-            resultType="com.kashark.crazykashark.entity.StudentInformation">
+            resultType="com.kashark.crazykashark.dto.BriefStudentInformationDTO">
         <include refid="selectBriefStudentInformation"/>
         WHERE stu_i.`deleted` = 0
         ORDER BY stu_i.`consultation` ASC, stu_i.`student_id` ASC
@@ -40,7 +40,7 @@
     </select>
 
     <select resultMap="studentInformationBriefResultMap" id="getBriefStudentInformationByConsultation"
-            resultType="com.kashark.crazykashark.entity.StudentInformation">
+            resultType="com.kashark.crazykashark.dto.BriefStudentInformationDTO">
         <include refid="selectBriefStudentInformation"/>
         WHERE stu_i.`deleted` = 0
         AND stu_i.`consultation` = #{consultation}
@@ -50,21 +50,21 @@
 
 
     <select resultMap="studentInformationResultMap" id="getStudentInformationById"
-            resultType="com.kashark.crazykashark.entity.StudentInformation">
+            resultType="com.kashark.crazykashark.dto.StudentInformationDTO">
         <include refid="selectStudentInformation"/>
         WHERE stu_i.`deleted` = 0
         AND stu_i.`id` = #{id}
     </select>
 
     <select resultMap="studentInformationBriefResultMap" id="getBriefStudentInformationByStudentId"
-            resultType="com.kashark.crazykashark.entity.StudentInformation">
+            resultType="com.kashark.crazykashark.dto.BriefStudentInformationDTO">
         <include refid="selectBriefStudentInformation"/>
         WHERE stu_i.`deleted` = 0
         AND stu_i.`student_id` = #{studentId}
     </select>
 
     <select resultMap="studentInformationBriefResultMap" id="searchBriefStudentInformation"
-            resultType="com.kashark.crazykashark.entity.StudentInformation">
+            resultType="com.kashark.crazykashark.dto.BriefStudentInformationDTO">
         <include refid="selectBriefStudentInformation"/>
         <where>
             <if test="keywords != null">
@@ -81,7 +81,7 @@
         LIMIT #{start}, #{length}
     </select>
 
-    <resultMap id="studentInformationResultMap" type="com.kashark.crazykashark.entity.StudentInformation">
+    <resultMap id="studentInformationResultMap" type="com.kashark.crazykashark.dto.StudentInformationDTO">
         <id column="id" property="id"/>
         <result column="studentId" property="student_id"/>
         <result column="registrationTime" property="registration_time"/>
@@ -97,7 +97,7 @@
         <result column="comment" property="comment"/>
     </resultMap>
 
-    <resultMap id="studentInformationBriefResultMap" type="com.kashark.crazykashark.entity.StudentInformation">
+    <resultMap id="studentInformationBriefResultMap" type="com.kashark.crazykashark.dto.BriefStudentInformationDTO">
         <id column="id" property="id"/>
         <result column="consultation" property="consultation"/>
         <result column="studentId" property="student_id"/>

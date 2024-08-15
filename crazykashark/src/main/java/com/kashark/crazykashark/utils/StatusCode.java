@@ -34,4 +34,12 @@ public class StatusCode {
     public static final Integer EDIT_STUDENT_INFORMATION_FAIL = 406;
 
     public static final Integer DELETE_STUDENT_INFORMATION_FAIL = 407;
+
+    public static final Integer GET_SCHEDULE_FAIL = 408;
+
+    public static final Integer NEW_SCHEDULE_FAIL = 409;
+
+    public static final Integer EDIT_SCHEDULE_FAIL = 410;
+
+    public static final Integer DELETE_SCHEDULE_FAIL = 411;
 }

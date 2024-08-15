@@ -22,6 +22,8 @@ public class StudentFiltration {
 
     private String batch;
 
+    private Timestamp filtTime;
+
     private Integer grade;
 
     private String comment;

@@ -22,6 +22,8 @@ public class StudentPlan {
 
     private String batch;
 
+    private Timestamp planTime;
+
     private String comment;
 
     private Timestamp createTime;
