@@ -80,7 +80,7 @@ public class StudentInformationServiceImpl implements StudentInformationService 
     public void editStudentInformation(Integer staffId, StudentInformationDTO studentInformationDTO) throws ServiceException {
         log.info("修改学生信息：学生信息 {}", studentInformationDTO);
         if(studentInformationMapper.getBriefStudentInformationByStudentId(studentInformationDTO.getStudentId()) != null) {
-            throw new ServiceException(StatusCode.NEW_STUDENT_INFORMATION_FAIL, "学生编号已存在");
+            throw new ServiceException(StatusCode.EDIT_STUDENT_INFORMATION_FAIL, "学生编号已存在");
         }
         StudentInformation studentInformation = new StudentInformation();
         BeanUtils.copyProperties(studentInformationDTO, studentInformation);

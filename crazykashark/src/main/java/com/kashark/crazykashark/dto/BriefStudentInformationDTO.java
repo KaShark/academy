@@ -2,8 +2,6 @@ package com.kashark.crazykashark.dto;
 
 import lombok.Data;
 
-import java.sql.Timestamp;
-
 /**
  * 学生部分信息的DTO
  * @author 赵宇鹏

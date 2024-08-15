@@ -117,7 +117,7 @@ public class ScheduleServiceImpl implements ScheduleService {
         log.info("修改时间表：时间表 {}", scheduleDTO);
         if (scheduleDTO.getStudentId()!=null) {
             if(studentInformationMapper.getBriefStudentInformationByStudentId(scheduleDTO.getStudentId()) == null) {
-                throw new ServiceException(StatusCode.NEW_SCHEDULE_FAIL, "学生编号不存在");
+                throw new ServiceException(StatusCode.EDIT_SCHEDULE_FAIL, "学生编号不存在");
             }
         }
         Schedule schedule = new Schedule();
@@ -125,7 +125,7 @@ public class ScheduleServiceImpl implements ScheduleService {
         schedule.setUpdateTime(new Timestamp(System.currentTimeMillis()));
         schedule.setUpdateBy(staffId);
         if (scheduleMapper.updateById(schedule) <= 0) {
-            throw new ServiceException(StatusCode.EDIT_STUDENT_INFORMATION_FAIL, "修改时间表失败");
+            throw new ServiceException(StatusCode.EDIT_SCHEDULE_FAIL, "修改时间表失败");
         }
     }
 
@@ -138,7 +138,7 @@ public class ScheduleServiceImpl implements ScheduleService {
         lambdaUpdateWrapper.set(Schedule::getUpdateBy, staffId);
         lambdaUpdateWrapper.set(Schedule::getDeleted, 1);
         if (scheduleMapper.update(null, lambdaUpdateWrapper) <= 0) {
-            throw new ServiceException(StatusCode.DELETE_STUDENT_INFORMATION_FAIL, "删除时间表失败");
+            throw new ServiceException(StatusCode.DELETE_SCHEDULE_FAIL, "删除时间表失败");
         }
     }
 
@@ -147,5 +147,4 @@ public class ScheduleServiceImpl implements ScheduleService {
         log.info("搜索时间表：关键字 {}，当前页面 {}，页面尺寸 {}", keywords, current, size);
         return scheduleMapper.searchSchedules(keywords, (current - 1) * size, size);
     }
-
 }

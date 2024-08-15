@@ -3,7 +3,6 @@ package com.kashark.crazykashark.service;
 import com.kashark.crazykashark.dto.ScheduleDTO;
 import com.kashark.crazykashark.exception.ServiceException;
 
-import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.util.List;
 

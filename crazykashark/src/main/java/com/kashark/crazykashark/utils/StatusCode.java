@@ -42,4 +42,12 @@ public class StatusCode {
     public static final Integer EDIT_SCHEDULE_FAIL = 410;
 
     public static final Integer DELETE_SCHEDULE_FAIL = 411;
+
+    public static final Integer GET_STAFF_FAIL = 412;
+
+    public static final Integer NEW_STAFF_FAIL = 413;
+
+    public static final Integer EDIT_STAFF_FAIL = 414;
+
+    public static final Integer DELETE_STAFF_FAIL = 415;
 }

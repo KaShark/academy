@@ -29,11 +29,7 @@ public class Staff {
 
     private Timestamp createTime;
 
-    private Integer createBy;
-
     private Timestamp updateTime;
-
-    private Integer updateBy;
 
     private Integer deleted;
 }

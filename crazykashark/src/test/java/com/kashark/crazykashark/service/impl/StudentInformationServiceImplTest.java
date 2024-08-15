@@ -1,8 +1,6 @@
 package com.kashark.crazykashark.service.impl;
 
-import com.kashark.crazykashark.dto.BriefStudentInformationDTO;
 import com.kashark.crazykashark.dto.StudentInformationDTO;
-import com.kashark.crazykashark.entity.StudentInformation;
 import com.kashark.crazykashark.exception.ServiceException;
 import com.kashark.crazykashark.service.StudentInformationService;
 import lombok.extern.slf4j.Slf4j;
