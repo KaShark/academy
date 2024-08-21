@@ -29,9 +29,8 @@ public class StaffServiceImpl implements StaffService {
 
     @Override
     public List<StaffDTO> getStaff(Integer current, Integer size) {
-        log.info("获取员工信息：咨询年份 所有，当前页面 {}，页面尺寸 {}", current, size);
+        log.info("获取员工信息：当前页面 {}，页面尺寸 {}", current, size);
         return staffMapper.getStaff((current - 1) * size, size);
-
     }
 
     @Override
@@ -90,7 +89,7 @@ public class StaffServiceImpl implements StaffService {
         lambdaUpdateWrapper.set(Staff::getUpdateTime, new Timestamp(System.currentTimeMillis()));
         lambdaUpdateWrapper.set(Staff::getDeleted, 1);
         if (staffMapper.update(null, lambdaUpdateWrapper) <= 0) {
-            throw new ServiceException(StatusCode.DELETE_STUDENT_INFORMATION_FAIL, "删除员工信息失败");
+            throw new ServiceException(StatusCode.DELETE_STAFF_FAIL, "删除员工信息失败");
         }
     }
 

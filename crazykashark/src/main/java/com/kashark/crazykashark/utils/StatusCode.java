@@ -50,4 +50,12 @@ public class StatusCode {
     public static final Integer EDIT_STAFF_FAIL = 414;
 
     public static final Integer DELETE_STAFF_FAIL = 415;
+
+    public static final Integer GET_CORE_TEACHER_FAIL = 416;
+
+    public static final Integer NEW_CORE_TEACHER_FAIL = 417;
+
+    public static final Integer EDIT_CORE_TEACHER_FAIL = 418;
+
+    public static final Integer DELETE_CORE_TEACHER_FAIL = 419;
 }

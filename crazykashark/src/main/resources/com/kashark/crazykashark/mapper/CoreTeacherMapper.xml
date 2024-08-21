@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kashark.crazykashark.mapper.CoreTeacherMapper">
+    <sql id="selectCoreTeacher">
+        SELECT c_tea.`id`,
+               c_tea.`staff_id`,
+               sta.`staff_name`,
+               c_tea.`core_teacher_id`
+        FROM `core_teacher` c_tea
+        LEFT JOIN `staff` sta ON sta.`staff_id` = c_tea.`staff_id`
+    </sql>
+
+    <select resultMap="coreTeacherResultMap" id="getCoreTeachers"
+            resultType="com.kashark.crazykashark.dto.CoreTeacherDTO">
+        <include refid="selectCoreTeacher"/>
+        WHERE c_tea.`deleted` = 0
+        ORDER BY c_tea.`core_teacher_id` ASC
+        LIMIT #{start}, #{length}
+    </select>
+
+    <select resultMap="coreTeacherResultMap" id="getCoreTeacherById"
+            resultType="com.kashark.crazykashark.dto.CoreTeacherDTO">
+        <include refid="selectCoreTeacher"/>
+        WHERE c_tea.`deleted` = 0
+        AND c_tea.`id` = #{id}
+    </select>
+
+
+    <select resultMap="coreTeacherResultMap" id="getCoreTeacherByStaffId"
+            resultType="com.kashark.crazykashark.dto.CoreTeacherDTO">
+        <include refid="selectCoreTeacher"/>
+        WHERE c_tea.`deleted` = 0
+        AND c_tea.`staff_id` = #{staff_id}
+    </select>
+
+
+    <select resultMap="coreTeacherResultMap" id="getCoreTeacherByCoreTeacherId"
+            resultType="com.kashark.crazykashark.dto.CoreTeacherDTO">
+        <include refid="selectCoreTeacher"/>
+        WHERE c_tea.`deleted` = 0
+        AND c_tea.`core_teacher_id` = #{core_teacher_id}
+    </select>
+
+    <select resultMap="coreTeacherResultMap" id="searchCoreTeachers"
+            resultType="com.kashark.crazykashark.dto.CoreTeacherDTO">
+        <include refid="selectCoreTeacher"/>
+        <where>
+            <if test="keywords != null">
+                <foreach collection="keywords" item="keyword">
+                    AND (
+                    sta.`staff_name` LIKE "%"#{keyword}"%"
+                    OR c_tea.`staff_id` LIKE "%"#{keyword}"%"
+                    )
+                </foreach>
+            </if>
+            AND c_tea.`deleted` = 0
+        </where>
+        ORDER BY c_tea.`core_teacher_id` ASC
+        LIMIT #{start}, #{length}
+    </select>
+
+    <resultMap id="coreTeacherResultMap" type="com.kashark.crazykashark.dto.CoreTeacherDTO">
+        <id column="id" property="id"/>
+        <result column="staffId" property="staff_id"/>
+        <result column="staffName" property="staff_name"/>
+        <result column="coreTeacherId" property="core_teacher_id"/>
+    </resultMap>
+</mapper>

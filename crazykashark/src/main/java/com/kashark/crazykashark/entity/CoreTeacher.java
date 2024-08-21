@@ -16,7 +16,7 @@ public class CoreTeacher {
 
     private Integer staffId;
 
-    private String coreTeacherId;
+    private Integer coreTeacherId;
 
     private Timestamp createTime;
 
