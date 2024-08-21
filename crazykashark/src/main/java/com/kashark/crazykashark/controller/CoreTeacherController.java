@@ -3,7 +3,6 @@ package com.kashark.crazykashark.controller;
 import com.baomidou.mybatisplus.core.injector.methods.Insert;
 import com.baomidou.mybatisplus.core.injector.methods.Update;
 import com.kashark.crazykashark.dto.CoreTeacherDTO;
-import com.kashark.crazykashark.dto.ScheduleDTO;
 import com.kashark.crazykashark.dto.SearchDTO;
 import com.kashark.crazykashark.entity.Result;
 import com.kashark.crazykashark.exception.ServiceException;
@@ -12,8 +11,6 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-
-import java.time.LocalDate;
 
 /**
  * 核心老师的Controller
