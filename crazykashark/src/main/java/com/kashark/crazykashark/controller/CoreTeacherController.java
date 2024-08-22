@@ -47,7 +47,7 @@ public class CoreTeacherController {
     }
 
     @GetMapping("/coreTeacherId/{coreTeacherId}")
-    @Operation(summary = "获取指定员工编号的核心老师")
+    @Operation(summary = "获取指定核心老师编号的核心老师")
     public Result getCoreTeacherByCoreTeacherId(@PathVariable Integer coreTeacherId) throws ServiceException {
         return new Result(coreTeacherService.getCoreTeacherByCoreTeacherId(coreTeacherId));
     }

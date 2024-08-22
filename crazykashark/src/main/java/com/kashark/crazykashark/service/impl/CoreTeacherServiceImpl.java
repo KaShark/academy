@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
 import java.util.List;
+
 /**
  * 核心老师Service
  * @author 赵宇鹏
@@ -33,7 +34,7 @@ public class CoreTeacherServiceImpl implements CoreTeacherService {
 
     @Override
     public List<CoreTeacherDTO> getCoreTeachers(Integer current, Integer size) {
-        log.info("获取核心老师：咨询年份 所有，当前页面 {}，页面尺寸 {}", current, size);
+        log.info("获取核心老师：当前页面 {}，页面尺寸 {}", current, size);
         return coreTeacherMapper.getCoreTeachers((current - 1) * size, size);
     }
 

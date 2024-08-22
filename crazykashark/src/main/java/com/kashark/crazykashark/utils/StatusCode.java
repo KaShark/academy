@@ -58,4 +58,12 @@ public class StatusCode {
     public static final Integer EDIT_CORE_TEACHER_FAIL = 418;
 
     public static final Integer DELETE_CORE_TEACHER_FAIL = 419;
+
+    public static final Integer GET_FILT_TEACHER_FAIL = 420;
+
+    public static final Integer NEW_FILT_TEACHER_FAIL = 421;
+
+    public static final Integer EDIT_FILT_TEACHER_FAIL = 422;
+
+    public static final Integer DELETE_FILT_TEACHER_FAIL = 423;
 }

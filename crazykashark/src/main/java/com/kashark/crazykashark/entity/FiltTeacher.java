@@ -16,7 +16,7 @@ public class FiltTeacher {
 
     private Integer staffId;
 
-    private String filtTeacherId;
+    private Integer filtTeacherId;
 
     private Timestamp createTime;
 
