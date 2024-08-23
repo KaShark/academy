@@ -66,4 +66,12 @@ public class StatusCode {
     public static final Integer EDIT_FILT_TEACHER_FAIL = 422;
 
     public static final Integer DELETE_FILT_TEACHER_FAIL = 423;
+
+    public static final Integer GET_PLAN_GROUP_FAIL = 424;
+
+    public static final Integer NEW_PLAN_GROUP_FAIL = 425;
+
+    public static final Integer EDIT_PLAN_GROUP_FAIL = 426;
+
+    public static final Integer DELETE_PLAN_GROUP_FAIL = 427;
 }

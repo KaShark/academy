@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kashark.crazykashark.mapper.PlanGroupMapper">
+    <sql id="selectPlanGroup">
+        SELECT p_g.`id`,
+               p_g.`student_id`,
+               stu_info.`consultation`,
+               stu_info.`registration_time`,
+               stu_info.`student_name`,
+               stu_info.`high_school`,
+               stu_info.`major`,
+               stu_info.`score`,
+               p_g.`core_teacher_id`,
+               sta.`staff_name` `core_teacher_name`
+        FROM `plan_group` p_g
+        LEFT JOIN `student_information` stu_info ON stu_info.`student_id` = p_g.`student_id`
+        LEFT JOIN `core_teacher` c_tea ON c_tea.`core_teacher_id` = p_g.`core_teacher_id`
+        LEFT JOIN `staff` sta ON sta.`staff_id` = c_tea.`staff_id`
+
+    </sql>
+
+    <select resultMap="planGroupResultMap" id="getPlanGroupsInRegistrationTimeAsc"
+            resultType="com.kashark.crazykashark.dto.PlanGroupDTO">
+        <include refid="selectPlanGroup"/>
+        WHERE p_g.`deleted` = 0
+        ORDER BY stu_info.`registration_time` ASC
+        LIMIT #{start}, #{length}
+    </select>
+
+    <select resultMap="planGroupResultMap" id="getPlanGroupsInScoreDesc"
+            resultType="com.kashark.crazykashark.dto.PlanGroupDTO">
+        <include refid="selectPlanGroup"/>
+        WHERE p_g.`deleted` = 0
+        ORDER BY stu_info.`score` DESC
+        LIMIT #{start}, #{length}
+    </select>
+
+    <select resultMap="planGroupResultMap" id="getPlanGroupById"
+            resultType="com.kashark.crazykashark.dto.PlanGroupDTO">
+        <include refid="selectPlanGroup"/>
+        WHERE p_g.`deleted` = 0
+        AND p_g.`id` = #{id}
+    </select>
+
+    <select resultMap="planGroupResultMap" id="getPlanGroupByStudentId"
+            resultType="com.kashark.crazykashark.dto.PlanGroupDTO">
+        <include refid="selectPlanGroup"/>
+        WHERE p_g.`deleted` = 0
+        AND p_g.`student_id` = #{studentId}
+    </select>
+
+    <select resultMap="planGroupResultMap" id="getPlanGroupsByConsultationInRegistrationTimeAsc"
+            resultType="com.kashark.crazykashark.dto.PlanGroupDTO">
+        <include refid="selectPlanGroup"/>
+        WHERE p_g.`deleted` = 0
+        AND stu_info.`consultation` = #{consultation}
+        ORDER BY stu_info.`registration_time` ASC
+        LIMIT #{start}, #{length}
+    </select>
+
+    <select resultMap="planGroupResultMap" id="getPlanGroupsByConsultationInScoreDesc"
+            resultType="com.kashark.crazykashark.dto.PlanGroupDTO">
+        <include refid="selectPlanGroup"/>
+        WHERE p_g.`deleted` = 0
+        AND stu_info.`consultation` = #{consultation}
+        ORDER BY stu_info.`score` DESC
+        LIMIT #{start}, #{length}
+    </select>
+
+    <select resultMap="planGroupResultMap" id="getPlanGroupsByCoreTeacherIdInRegistrationTimeAsc"
+            resultType="com.kashark.crazykashark.dto.PlanGroupDTO">
+        <include refid="selectPlanGroup"/>
+        WHERE p_g.`deleted` = 0
+        AND c_tea.`core_teacher_id` = #{coreTeacherId}
+        ORDER BY stu_info.`registration_time` ASC
+        LIMIT #{start}, #{length}
+    </select>
+
+    <select resultMap="planGroupResultMap" id="getPlanGroupsByCoreTeacherIdInScoreDesc"
+            resultType="com.kashark.crazykashark.dto.PlanGroupDTO">
+        <include refid="selectPlanGroup"/>
+        WHERE p_g.`deleted` = 0
+        AND c_tea.`core_teacher_id` = #{coreTeacherId}
+        ORDER BY stu_info.`score` DESC
+        LIMIT #{start}, #{length}
+    </select>
+
+    <select resultMap="planGroupResultMap" id="getPlanGroupsByConsultationAndCoreTeacherIdInRegistrationTimeAsc"
+            resultType="com.kashark.crazykashark.dto.PlanGroupDTO">
+        <include refid="selectPlanGroup"/>
+        WHERE p_g.`deleted` = 0
+        AND stu_info.`consultation` = #{consultation}
+        AND c_tea.`core_teacher_id` = #{coreTeacherId}
+        ORDER BY stu_info.`registration_time` ASC
+        LIMIT #{start}, #{length}
+    </select>
+
+    <select resultMap="planGroupResultMap" id="getPlanGroupsByConsultationAndCoreTeacherIdInScoreDesc"
+            resultType="com.kashark.crazykashark.dto.PlanGroupDTO">
+        <include refid="selectPlanGroup"/>
+        WHERE p_g.`deleted` = 0
+        AND stu_info.`consultation` = #{consultation}
+        AND c_tea.`core_teacher_id` = #{coreTeacherId}
+        ORDER BY stu_info.`score` DESC
+        LIMIT #{start}, #{length}
+    </select>
+
+    <select resultMap="planGroupResultMap" id="searchPlanGroups"
+            resultType="com.kashark.crazykashark.dto.PlanGroupDTO">
+        <include refid="selectPlanGroup"/>
+        <where>
+            <if test="keywords != null">
+                <foreach collection="keywords" item="keyword">
+                    AND (
+                    stu_info.`student_name` LIKE "%"#{keyword}"%"
+                    OR p_g.`student_id` LIKE "%"#{keyword}"%"
+                    )
+                </foreach>
+            </if>
+            AND p_g.`deleted` = 0
+        </where>
+        ORDER BY stu_info.`registration_time` ASC
+        LIMIT #{start}, #{length}
+    </select>
+
+    <resultMap id="planGroupResultMap" type="com.kashark.crazykashark.dto.PlanGroupDTO">
+        <id column="id" property="id"/>
+        <result column="studentId" property="student_id"/>
+        <result column="consultation" property="consultation"/>
+        <result column="registrationTime" property="registration_time"/>
+        <result column="studentName" property="student_name"/>
+        <result column="highSchool" property="high_school"/>
+        <result column="major" property="major"/>
+        <result column="score" property="score"/>
+        <result column="coreTeacherId" property="core_teacher_id"/>
+        <result column="coreTeacherName" property="core_teacher_name"/>
+    </resultMap>
+</mapper>

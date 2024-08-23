@@ -16,7 +16,7 @@ public class PlanGroup {
 
     private Integer studentId;
 
-    private String coreTeacherId;
+    private Integer coreTeacherId;
 
     private Timestamp createTime;
 

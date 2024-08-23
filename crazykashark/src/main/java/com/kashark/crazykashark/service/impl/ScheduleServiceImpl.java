@@ -35,7 +35,7 @@ public class ScheduleServiceImpl implements ScheduleService {
     
     @Override
     public List<ScheduleDTO> getSchedules(Integer current, Integer size) {
-        log.info("获取时间表：当前页面 {}，页面尺寸 {}", current, size);
+        log.info("获取时间表：时间 所有，核心老师编号 所有，安排种类 所有，当前页面 {}，页面尺寸 {}", current, size);
         return scheduleMapper.getSchedules((current - 1) * size, size);
     }
 
@@ -51,49 +51,49 @@ public class ScheduleServiceImpl implements ScheduleService {
 
     @Override
     public List<ScheduleDTO> getSchedulesByStudentId(Integer studentId, Integer current, Integer size) {
-        log.info("通过学生编号获取时间表：学生编号 {}", studentId);
+        log.info("通过学生编号获取时间表：学生编号 {}，当前页面 {}，页面尺寸 {}", studentId, current, size);
         return scheduleMapper.getSchedulesByStudentId(studentId, (current - 1) * size, size);
     }
 
     @Override
     public List<ScheduleDTO> getSchedulesByTime(LocalDate date, Integer current, Integer size) {
-        log.info("通过日期获取时间表：时间 {}", date);
+        log.info("通过日期获取时间表：时间 {}，核心老师编号 所有，安排种类 所有，当前页面 {}，页面尺寸 {}", date, current, size);
         return scheduleMapper.getSchedulesByTime(Timestamp.valueOf(date.atStartOfDay()), Timestamp.valueOf(date.plusDays(1).atStartOfDay()), (current - 1) * size, size);
     }
 
     @Override
     public List<ScheduleDTO> getSchedulesByCoreTeacherId(Integer coreTeacherId, Integer current, Integer size) {
-        log.info("通过核心老师编号获取时间表：核心老师编号 {}", coreTeacherId);
+        log.info("通过核心老师编号获取时间表：时间 所有，核心老师编号 {}，安排种类 所有，当前页面 {}，页面尺寸 {}", coreTeacherId, current, size);
         return scheduleMapper.getSchedulesByCoreTeacherId(coreTeacherId, (current - 1) * size, size);
     }
 
     @Override
     public List<ScheduleDTO> getSchedulesByType(String type, Integer current, Integer size) {
-        log.info("通过安排种类获取时间表：安排种类 {}", type);
+        log.info("通过安排种类获取时间表：时间 所有，核心老师编号 所有，安排种类 {}，当前页面 {}，页面尺寸 {}", type, current, size);
         return scheduleMapper.getSchedulesByType(type, (current - 1) * size, size);
     }
 
     @Override
     public List<ScheduleDTO> getSchedulesByCoreTeacherIdAndType(Integer coreTeacherId, String type, Integer current, Integer size) {
-        log.info("通过核心老师编号和安排种类获取时间表：核心老师编号 {}，安排种类 {}", coreTeacherId ,type);
+        log.info("通过核心老师编号和安排种类获取时间表：时间 所有，核心老师编号 {}，安排种类 {}，当前页面 {}，页面尺寸 {}", coreTeacherId ,type, current, size);
         return scheduleMapper.getSchedulesByCoreTeacherIdAndType(coreTeacherId, type, (current - 1) * size, size);
     }
 
     @Override
     public List<ScheduleDTO> getSchedulesByTimeAndCoreTeacherId(LocalDate date, Integer coreTeacherId, Integer current, Integer size) {
-        log.info("通过时间和核心老师编号获取时间表：时间 {}，核心老师编号 {}", date, coreTeacherId);
+        log.info("通过时间和核心老师编号获取时间表：时间 {}，核心老师编号 {}，安排种类 所有，当前页面 {}，页面尺寸 {}", date, coreTeacherId, current, size);
         return scheduleMapper.getSchedulesByTimeAndCoreTeacherId(Timestamp.valueOf(date.atStartOfDay()), Timestamp.valueOf(date.plusDays(1).atStartOfDay()), coreTeacherId, (current - 1) * size, size);
     }
 
     @Override
     public List<ScheduleDTO> getSchedulesByTimeAndType(LocalDate date, String type, Integer current, Integer size) {
-        log.info("通过时间和安排种类获取时间表：时间 {}，安排种类 {}", date, type);
+        log.info("通过时间和安排种类获取时间表：时间 {}，核心老师编号 所有，安排种类 {}，当前页面 {}，页面尺寸 {}", date, type, current, size);
         return scheduleMapper.getSchedulesByTimeAndType(Timestamp.valueOf(date.atStartOfDay()), Timestamp.valueOf(date.plusDays(1).atStartOfDay()), type, (current - 1) * size, size);
     }
 
     @Override
     public List<ScheduleDTO> getSchedulesByTimeAndCoreTeacherIdAndType(LocalDate date, Integer coreTeacherId, String type, Integer current, Integer size) {
-        log.info("通过时间、核心老师编号和安排种类获取时间表：时间 {}，核心老师编号 {}，安排种类 {}", date, coreTeacherId, type);
+        log.info("通过时间、核心老师编号和安排种类获取时间表：时间 {}，核心老师编号 {}，安排种类 {}，当前页面 {}，页面尺寸 {}", date, coreTeacherId, type, current, size);
         return scheduleMapper.getSchedulesByTimeAndCoreTeacherIdAndType(Timestamp.valueOf(date.atStartOfDay()), Timestamp.valueOf(date.plusDays(1).atStartOfDay()), coreTeacherId, type, (current - 1) * size, size);
     }
 

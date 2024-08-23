@@ -50,7 +50,7 @@ public class ScheduleController {
 
     @GetMapping("/option")
     @Operation(summary = "获取指定条件的时间表")
-    public Result getSchedulesByTimeAndCoreTeacherIdAneType(LocalDate date, Integer coreTeacherId, String type, Integer current, Integer size) {
+    public Result getSchedulesByTimeAndCoreTeacherIdAndType(LocalDate date, Integer coreTeacherId, String type, Integer current, Integer size) {
         if (date == null) {
             if (coreTeacherId == null) {
                 if (type == null) {
