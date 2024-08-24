@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kashark.crazykashark.mapper.AdmissionMapper">
+    <sql id="selectAdmission">
+        SELECT adm.`id`,
+               adm.`student_id`,
+               stu_info.`consultation`,
+               stu_info.`student_name`,
+               stu_info.`high_school`,
+               stu_info.`major`,
+               stu_info.`score`,
+               c_tea.`core_teacher_id`,
+               sta.`staff_name` `core_teacher_name`,
+               adm.`university`,
+               adm.`subject`,
+               adm.`error`,
+               adm.`comment`
+        FROM `admission` adm
+                 LEFT JOIN `student_information` stu_info ON stu_info.`student_id` = adm.`student_id`
+                 LEFT JOIN `plan_group` p_g ON p_g.`student_id` = stu_info.`student_id`
+                 LEFT JOIN `core_teacher` c_tea ON c_tea.`core_teacher_id` = p_g.`core_teacher_id`
+                 LEFT JOIN `staff` sta ON sta.`staff_id` = c_tea.`staff_id`
+
+    </sql>
+
+    <select resultMap="admissionResultMap" id="getAdmission"
+            resultType="com.kashark.crazykashark.dto.AdmissionDTO">
+        <include refid="selectAdmission"/>
+        WHERE adm.`deleted` = 0
+        ORDER BY adm.`student_id` ASC
+        LIMIT #{start}, #{length}
+    </select>
+
+    <select resultMap="admissionResultMap" id="getAdmissionNotNull"
+            resultType="com.kashark.crazykashark.dto.AdmissionDTO">
+        <include refid="selectAdmission"/>
+        WHERE adm.`deleted` = 0
+        AND adm.`university` IS NOT NULL
+        AND adm.`subject` IS NOT NULL
+        ORDER BY adm.`student_id` ASC
+        LIMIT #{start}, #{length}
+    </select>
+
+    <select resultMap="admissionResultMap" id="getAdmissionById"
+            resultType="com.kashark.crazykashark.dto.AdmissionDTO">
+        <include refid="selectAdmission"/>
+        WHERE adm.`deleted` = 0
+        AND adm.`id` = #{id}
+    </select>
+
+    <select resultMap="admissionResultMap" id="getAdmissionByStudentId"
+            resultType="com.kashark.crazykashark.dto.AdmissionDTO">
+        <include refid="selectAdmission"/>
+        WHERE adm.`deleted` = 0
+        AND adm.`student_id` = #{studentId}
+    </select>
+
+    <select resultMap="admissionResultMap" id="getAdmissionByCoreTeacherId"
+            resultType="com.kashark.crazykashark.dto.AdmissionDTO">
+        <include refid="selectAdmission"/>
+        WHERE adm.`deleted` = 0
+        AND c_tea.`core_teacher_id` = #{coreTeacherId}
+        ORDER BY adm.`student_id` ASC
+        LIMIT #{start}, #{length}
+    </select>
+
+    <select resultMap="admissionResultMap" id="getAdmissionNotNullByCoreTeacherId"
+            resultType="com.kashark.crazykashark.dto.AdmissionDTO">
+        <include refid="selectAdmission"/>
+        WHERE adm.`deleted` = 0
+        AND adm.`university` IS NOT NULL
+        AND adm.`subject` IS NOT NULL
+        AND c_tea.`core_teacher_id` = #{coreTeacherId}
+        ORDER BY adm.`student_id` ASC
+        LIMIT #{start}, #{length}
+    </select>
+
+    <select resultMap="admissionResultMap" id="searchAdmission"
+            resultType="com.kashark.crazykashark.dto.AdmissionDTO">
+        <include refid="selectAdmission"/>
+        <where>
+            <if test="keywords != null">
+                <foreach collection="keywords" item="keyword">
+                    AND (
+                    stu_info.`student_name` LIKE "%"#{keyword}"%"
+                    OR adm.`student_id` LIKE "%"#{keyword}"%"
+                    )
+                </foreach>
+            </if>
+            AND adm.`deleted` = 0
+        </where>
+        ORDER BY adm.`student_id` ASC
+        LIMIT #{start}, #{length}
+    </select>
+
+    <resultMap id="admissionResultMap" type="com.kashark.crazykashark.dto.AdmissionDTO">
+        <id column="id" property="id"/>
+        <result column="studentId" property="student_id"/>
+        <result column="consultation" property="consultation"/>
+        <result column="studentName" property="student_name"/>
+        <result column="highSchool" property="high_school"/>
+        <result column="major" property="major"/>
+        <result column="score" property="score"/>
+        <result column="coreTeacherId" property="core_teacher_id"/>
+        <result column="coreTeacherName" property="core_teacher_name"/>
+        <result column="university" property="university"/>
+        <result column="subject" property="subject"/>
+        <result column="error" property="error"/>
+        <result column="comment" property="comment"/>
+    </resultMap>
+</mapper>

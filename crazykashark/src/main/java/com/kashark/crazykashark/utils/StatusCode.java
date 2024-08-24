@@ -74,4 +74,12 @@ public class StatusCode {
     public static final Integer EDIT_PLAN_GROUP_FAIL = 426;
 
     public static final Integer DELETE_PLAN_GROUP_FAIL = 427;
+
+    public static final Integer GET_ADMISSION_FAIL = 428;
+
+    public static final Integer NEW_ADMISSION_FAIL = 429;
+
+    public static final Integer EDIT_ADMISSION_FAIL = 430;
+
+    public static final Integer DELETE_ADMISSION_FAIL = 431;
 }
